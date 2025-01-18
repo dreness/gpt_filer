@@ -1,0 +1,13 @@
+[
+    {
+      "id": 1,
+      "path": "src/hello.py",
+      "code": "#!/usr/bin/env python3\nprint('Hello, World!')\n"
+    },
+    {
+      "id": 2,
+      "path": "src/utils/math_utils.py",
+      "code": "def add(a, b):\n    return a + b\n"
+    }
+  ]
+  
