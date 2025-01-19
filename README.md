@@ -18,6 +18,8 @@ Proof-of-concept to ease the process of getting code results from ChatGPT onto y
 
 * The service worker will POST the JSON to a local server, which will write the code to the specified path(s).
 
+Here's a [short demo](https://youtu.be/ivJNyp4Qrf0)
+
 ### Setup
 
 #### Python
@@ -47,7 +49,7 @@ pip install Flask
 
     > Executable code should be represented in a JSON document containing an array of dictionaries. Each dict has the keys: id, path, code, where ID is a unique identifier like an integer used to refer to a given code chunk; path is the full path to the file; and code is the executable code that will be copied into the file at the given path.
 
-3. When the response is finished, click the extension icon in your browser toolbar to send the code fragments to the server.
+3. When the response is finished, click the extension icon in your browser toolbar to send the code fragments to the local server.
 
 If it worked, the "proj" directory should have stuff in it, and the server console should show something like:
 
