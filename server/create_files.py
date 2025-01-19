@@ -8,7 +8,7 @@ def create_files_from_json(json_path: str, root_dir: str = "proj"):
     """
     Reads a JSON file containing an array of objects, each with 'id', 'path', and 'code',
     and writes the contents of 'code' to the specified 'path'. All paths will be chrooted
-    to the current working directory.
+    to root_dir.
 
     :param json_path: The path to the JSON file.
     :param root_dir: The root directory to chroot to.
