@@ -50,7 +50,7 @@
     // Grab all the valid JSON fragments on the page
     const foundFragments = findJsonFragments();
     if (foundFragments.length > 0) {
-      console.log("[Content Script] Found JSON fragments:", foundFragments);
+      //console.log("[Content Script] Found JSON fragments:", foundFragments);
   
       // Send the fragments to the background service worker
       chrome.runtime.sendMessage({ type: "FOUND_JSON", payload: foundFragments });

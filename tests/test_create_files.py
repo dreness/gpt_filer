@@ -1,13 +1,14 @@
 import os
 import shutil
-import tempfile
 import json
 import unittest
 import uuid
-from scripts.create_files import create_files_from_json
+from server.create_files import create_files_from_json
 
 class TestCreateFiles(unittest.TestCase):
     def setUp(self):
+        # stash current directory
+        self.cwd = os.getcwd()
         # create a temporary directory inside the test directory with a pseudo-random name
         dir_name = str(uuid.uuid4())
         print(dir_name)
@@ -33,8 +34,23 @@ class TestCreateFiles(unittest.TestCase):
             json.dump(data, f)
 
     def tearDown(self):
-        # Clean up the temporary directory
+        # Clean up the directory created in setUp, even if it still contains files
+        print(f"Cleaning up {self.test_dir}")
+        # print current directory
+        print(os.getcwd())
+        # remove all files from self.test_dir
+        #os.chdir(self.test_dir)
+        for root, dirs, files in os.walk(self.test_dir, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+            for name in dirs:
+                os.rmdir(os.path.join(root, name))
         shutil.rmtree(self.test_dir)
+        #os.rmdir(self.test_dir)
+        
+        # return to the original directory
+        os.chdir(self.cwd) 
+
 
     def test_file_creation(self):
         create_files_from_json(self.test_json)
@@ -50,6 +66,9 @@ class TestCreateFiles(unittest.TestCase):
 
         with open(file2_path, 'r') as f2:
             self.assertEqual(f2.read(), "# test2")
+
+        # return to the original directory
+        os.chdir(self.cwd)    
 
 if __name__ == '__main__':
     unittest.main()

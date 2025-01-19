@@ -19,15 +19,13 @@ def create_files():
 
     try:
         entries = request.json
-        # assert that entries is a list
-        # Debug print headers, request.json, and request.data
         # print(request.headers)
         # print(request.json)
         # print(request.data)
         if not isinstance(entries, list):
             return jsonify({"error": "Invalid data format. Must be a list."}), 400
 
-        # assert that each list entry is a dictionary with keys "id", "path", and "code"
+        # ensure that each list entry is a dictionary with keys "id", "path", and "code"
         for entry in entries:
             if not isinstance(entry, dict):
                 return jsonify({"error": "Invalid data format. List entries must be dictionaries."}), 400
@@ -41,7 +39,6 @@ def create_files():
         with open(fname, 'w', encoding='utf-8') as f:
             json.dump(entries, f)
         print(f"Data written to {fname}")
-        # call create_files_from_json with the filename
         create_files_from_json(fname)
         return jsonify({"status": "Success", "files_created": len(entries)}), 200
     except Exception as e:
