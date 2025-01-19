@@ -4,16 +4,27 @@ import os
 import json
 import sys
 
-def create_files_from_json(json_path: str):
+def create_files_from_json(json_path: str, root_dir: str = "proj"):
     """
     Reads a JSON file containing an array of objects, each with 'id', 'path', and 'code',
     and writes the contents of 'code' to the specified 'path'. All paths will be chrooted
     to the current working directory.
+
+    :param json_path: The path to the JSON file.
+    :param root_dir: The root directory to chroot to.
     """
+    print(f"Creating files from {json_path}")
+    # Change to root directory, creating it if needed
+    os.makedirs(root_dir, exist_ok=True)
     # Load JSON data
     with open(json_path, 'r', encoding='utf-8') as f:
         code_entries = json.load(f)
 
+    os.chdir(root_dir)
+    print(f"Changed to root directory: {os.getcwd()}")
+
+    # debug print number of loaded entries
+    print(f"Loaded {len(code_entries)} entries")
     # For each JSON object
     for entry in code_entries:
         file_path = entry["path"]

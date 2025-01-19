@@ -20,10 +20,25 @@
       const preTags = document.querySelectorAll("pre");
       preTags.forEach((pre) => {
         try {
-          const parsed = JSON.parse(pre.textContent.trim());
-          if (Array.isArray(parsed) && parsed.every(isValidCodeObject)) {
-            fragments.push(parsed);
-          }
+            // if pre.outerText begins with "json"...
+            if (pre.outerText.startsWith("json")) {
+                console.log("pre.outerText", pre.outerText);
+                // Try to extract a JSON array from pre.innerText, which will be everything after the first [
+                // and before the last ] character.
+                const jsonStart = pre.outerText.indexOf("[");
+                const jsonEnd = pre.outerText.lastIndexOf("]");
+                const json = pre.outerText.substring(jsonStart, jsonEnd + 1);
+                //console.log("json", json);
+                const parsed = JSON.parse(json);
+                if (Array.isArray(parsed) && parsed.every(isValidCodeObject)) {
+                    fragments.push(parsed);
+                }
+                //console.log("pre.outerText.trim()", pre.outerText.trim());
+                // const parsed = JSON.parse(pre.outerText.trim().substring(4));
+                // if (Array.isArray(parsed) && parsed.every(isValidCodeObject)) {
+                //     fragments.push(parsed);
+                // }
+            }
         } catch (e) {
             //console.log("Error parsing JSON", e);
             // Not valid JSON or doesn't match our structure; ignore

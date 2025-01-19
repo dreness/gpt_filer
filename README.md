@@ -4,7 +4,7 @@ Ease the process of getting code results from ChatGPT onto your filesystem.
 
 ### Overview
 
-* Our prompt will include instructions to return code fragments as JSON objects, in the following form:
+* Our prompt will include instructions to return code fragments as JSON objects in the following form:
 
     ```json
     {
@@ -16,8 +16,7 @@ Ease the process of getting code results from ChatGPT onto your filesystem.
 
 * We'll have a browser extension to find these json fragments and send them to a service worker.
 
-The service worker will POST the JSON to a local server, which will write the code to the specified path.
-
+* The service worker will POST the JSON to a local server, which will write the code to the specified path.
 
 ### Run
 
